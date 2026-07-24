@@ -1,6 +1,6 @@
 function Rating({ value = 0, text = "", color = "#FFD93D" }) {
   const getStar = (starNumber) => {
-    if (value >= starNumber) return "H"; // Full star
+    if (value >= starNumber) return "⭐"; // Full star
     if (value >= starNumber - 0.5) return "½"; // Half star
     return "n"; // Empty star
   };
