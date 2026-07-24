@@ -11,7 +11,7 @@ import NotFoundScreen from './screens/NotFoundScreen';
 import CheckoutScreen    from './screens/CheckoutScreen';
 import PaymentScreen     from './screens/PaymentScreen';
 import PlaceOrderScreen  from './screens/PlaceOrderScreen';
-import MyOrdersScreen    from './screens/MyOrdersScreen';
+import MyOrdersScreen    from './screens/OrdersScreen';
 import AdminOrdersScreen from './screens/AdminOrdersScreen';
 import OrderDetailScreen from './screens/OrderDetailScreen';
 import { AdminRoute } from './components/ProtectedRoute';

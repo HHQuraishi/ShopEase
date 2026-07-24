@@ -40,7 +40,8 @@ function ProductCard({ product }) {
         overflow:     'hidden',
 
         transition:   'transform 0.2s, border-color 0.2s',
-
+        
+        objectFit: 'scale-down'
       }}
 
         onMouseEnter={e => {

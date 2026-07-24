@@ -37,13 +37,13 @@ function Navbar() {
       <Link
         to="/"
         style={{
-          color: "#9B6DD4",
+          color: "#38BDF8",
           fontSize: "22px",
           fontWeight: "bold",
           textDecoration: "none",
         }}
       >
-        Shopease
+        SHOPEASE
       </Link>
       <SearchBox/>
       <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
@@ -85,8 +85,8 @@ function Navbar() {
 
         {isLoggedIn ? (
           <>
-            <span style={{ color: "#E6EDF3" }}>
-              n {user?.name?.split(" ")[0]}
+            <span style={{ color: "#517390", fontFamily: "Lucida Handwriting", fontSize: "15px", fontWeight: "bolder"}}>
+              {user?.name?.split(" ")[0].toUpperCase()}
             </span>
 
             <button
