@@ -266,8 +266,7 @@ function CartScreen() {
               }}
             >
               <span style={{ color: "#8B949E" }}>{label}</span>
-              MERN Stack E-Commerce | Roman Urdu Course | Chapter 9: Frontend
-              Pages Complete Page 16
+              
               <span style={{ color: "#E6EDF3" }}>
                 Rs.{" "}
                 {amount?.toLocaleString(undefined, {
@@ -313,7 +312,7 @@ function CartScreen() {
                 textAlign: "center",
               }}
             >
-              n Free Shipping!
+               Free Shipping!
             </p>
           )}
           {shippingPrice > 0 && (

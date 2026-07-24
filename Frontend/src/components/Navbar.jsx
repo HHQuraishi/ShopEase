@@ -57,15 +57,15 @@ function Navbar() {
           {totalItems > 0 && (
             <span
               style={{
-                background: "#FF6B6B",
+                
                 color: "white",
 
                 borderRadius: "50%",
-                fontSize: "11px",
+                fontSize: "20px",
                 padding: "2px 6px",
                 marginLeft: "4px",
               }}
-            >
+            >  🛒
               {totalItems}
             </span>
           )}
@@ -107,9 +107,15 @@ function Navbar() {
         ) : (
           <NavLink
             to="/login"
-            style={{ color: "#8B949E", textDecoration: "none" }}
+            style={{ background: "#38BDF8",
+          color: "#0D1117",
+          border: "none",
+          borderRadius: "6px",
+          padding: "8px 16px",
+          fontWeight: "bold",
+          cursor: "pointer",}}
           >
-            Login
+          Login
           </NavLink>
         )}
       </div>
