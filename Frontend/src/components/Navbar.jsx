@@ -1,64 +1,65 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import { useCart } from "../context/CartContext";
+import {
+  logout,
+  selectUser,
+  selectIsLoggedIn,
+  selectIsAdmin,
+} from "../store/authSlice";
+import { selectTotalItems } from "../store/cartSlice";
+import SearchBox from "./SearchBox";
 
 function Navbar() {
-  const { user, isLoggedIn, isAdmin, logout } = useAuth();
-
-  const { totalItems } = useCart();
-
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const user = useSelector(selectUser);
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isAdmin = useSelector(selectIsAdmin);
+  const totalItems = useSelector(selectTotalItems);
   const logoutHandler = () => {
-    logout();
-
+    dispatch(logout());
     navigate("/login");
   };
-
-  const navStyle = {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "12px 24px",
-    background: "#161B22",
-    borderBottom: "1px solid #30363D",
-    position: "sticky",
-    top: 0,
-    zIndex: 100,
-  };
-
-  const linkStyle = (isActive) => ({
-    color: isActive ? "#F0A500" : "#8B949E",
-    textDecoration: "none",
-    fontWeight: isActive ? "bold" : "normal",
-    padding: "4px 8px",
-  });
-
   return (
-    <nav style={navStyle}>
-      {/* Logo */}
+    <nav
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        padding: "12px 24px",
+        background: "#161B22",
+        borderBottom: "1px solid #30363D",
+        position: "sticky",
+        top: 0,
+        zIndex: 100,
+      }}
+    >
       <Link
         to="/"
         style={{
-          color: "#F0A500",
+          color: "#9B6DD4",
           fontSize: "22px",
           fontWeight: "bold",
           textDecoration: "none",
         }}
-      ></Link>
-      {/* Nav Links */}
+      >
+        Shopease
+      </Link>
+      <SearchBox/>
       <div style={{ display: "flex", gap: "16px", alignItems: "center" }}>
-        <NavLink to="/" style={({ isActive }) => linkStyle(isActive)}>
-          Home
-        </NavLink>
-        {/* Cart with badge */}
-        <NavLink to="/cart" style={({ isActive }) => linkStyle(isActive)}>
-          n Cart
+        <NavLink
+          to="/cart"
+          style={({ isActive }) => ({
+            color: isActive ? "#9B6DD4" : "#8B949E",
+            textDecoration: "none",
+          })}
+        >
           {totalItems > 0 && (
             <span
               style={{
                 background: "#FF6B6B",
                 color: "white",
+
                 borderRadius: "50%",
                 fontSize: "11px",
                 padding: "2px 6px",
@@ -70,27 +71,23 @@ function Navbar() {
           )}
         </NavLink>
 
-        {/* Admin link */}
-
         {isAdmin && (
           <NavLink
             to="/admin/products"
-            style={({ isActive }) => linkStyle(isActive)}
+            style={({ isActive }) => ({
+              color: isActive ? "#9B6DD4" : "#8B949E",
+              textDecoration: "none",
+            })}
           >
             Admin
           </NavLink>
         )}
 
-        {/* Auth buttons */}
-
         {isLoggedIn ? (
           <>
-            <NavLink
-              to="/profile"
-              style={({ isActive }) => linkStyle(isActive)}
-            >
+            <span style={{ color: "#E6EDF3" }}>
               n {user?.name?.split(" ")[0]}
-            </NavLink>
+            </span>
 
             <button
               onClick={logoutHandler}
@@ -101,7 +98,6 @@ function Navbar() {
                 color: "#FF6B6B",
                 padding: "4px 12px",
                 borderRadius: "6px",
-
                 cursor: "pointer",
               }}
             >
@@ -109,7 +105,10 @@ function Navbar() {
             </button>
           </>
         ) : (
-          <NavLink to="/login" style={({ isActive }) => linkStyle(isActive)}>
+          <NavLink
+            to="/login"
+            style={{ color: "#8B949E", textDecoration: "none" }}
+          >
             Login
           </NavLink>
         )}

@@ -1,39 +1,106 @@
-import { useState } from 'react';
-import { useNavigate, Link, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { loginUser } from '../services/api';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { setCredentials } from "../store/authSlice";
+import { loginUser } from "../services/api";
 
 function LoginScreen() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
-  const location = useLocation();
-  const { login } = useAuth();
+
+  const [email, setEmail] = useState("");
+
+  const [password, setPassword] = useState("");
+
+  const [loading, setLoading] = useState(false);
+
+  const [error, setError] = useState("");
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
+    setLoading(true);
+    setError("");
+
     try {
       const { data } = await loginUser(email, password);
-      login(data.data, data.token);
-      const from = location.state?.from || '/';
-      navigate(from);
+
+      // Redux store update karo
+
+      dispatch(setCredentials({ user: data.data, token: data.token }));
+
+      navigate("/");
     } catch (err) {
-      setError(err.response?.data?.message || 'Login failed');
+      setError(err.response?.data?.message || "Login failed!");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div style={{ maxWidth: '400px', margin: '40px auto', padding: '20px', background: '#161B22', borderRadius: '8px' }}>
-      <h1>Sign In</h1>
-      {error && <p style={{ color: '#FF6B6B' }}>{error}</p>}
-      <form onSubmit={submitHandler}>
-        <input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} style={{ width: '100%', padding: '12px', margin: '8px 0', background: '#0D1117', border: '1px solid #30363D', borderRadius: '6px', color: 'white' }} required />
-        <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} style={{ width: '100%', padding: '12px', margin: '8px 0', background: '#0D1117', border: '1px solid #30363D', borderRadius: '6px', color: 'white' }} required />
-        <button type="submit" style={{ width: '100%', background: '#F0A500', padding: '12px', border: 'none', borderRadius: '6px', marginTop: '16px' }}>Login</button>
-      </form>
-      <p style={{ marginTop: '16px', textAlign: 'center' }}>New customer? <Link to="/register" style={{ color: '#F0A500' }}>Register</Link></p>
-    </div>
+    <form
+      onSubmit={submitHandler}
+      style={{ maxWidth: "400px", margin: "40px auto" }}
+    >
+      <h2 style={{ color: "#E6EDF3", marginBottom: "20px" }}>Login</h2>
+
+      {error && (
+        <p style={{ color: "#FF6B6B", marginBottom: "12px" }}>{error}</p>
+      )}
+
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Email"
+        style={{
+          width: "100%",
+          padding: "10px",
+          marginBottom: "12px",
+
+          background: "#1C2128",
+          border: "1px solid #30363D",
+          color: "white",
+          borderRadius: "6px",
+        }}
+      />
+
+      <input
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        placeholder="Password"
+        style={{
+          width: "100%",
+          padding: "10px",
+          marginBottom: "16px",
+
+          background: "#1C2128",
+          border: "1px solid #30363D",
+          color: "white",
+          borderRadius: "6px",
+        }}
+      />
+
+      <button
+        type="submit"
+        disabled={loading}
+        style={{
+          width: "100%",
+          padding: "12px",
+          background: "#764ABC",
+
+          color: "white",
+          border: "none",
+          borderRadius: "6px",
+          cursor: "pointer",
+          fontSize: "16px",
+        }}
+      >
+        {loading ? "Logging in..." : "Login"}
+      </button>
+    </form>
   );
 }
 

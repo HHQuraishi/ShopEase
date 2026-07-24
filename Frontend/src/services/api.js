@@ -34,3 +34,5 @@ export const getMyOrders = () => API.get('/orders/myorders');
 export const getOrderById = (id) => API.get(`/orders/${id}`);
 export const getAllOrders = () => API.get('/orders');
 export const updateOrderStatus = (id, status) => API.put(`/orders/${id}/status`, { orderStatus: status });
+export const createRazorpayOrder = (orderId) => API.post(`/orders/${orderId}/razorpay`);
+export const verifyRazorpayPayment = (orderId, payload) => API.post(`/orders/${orderId}/verify`, payload);
