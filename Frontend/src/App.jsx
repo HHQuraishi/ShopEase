@@ -8,7 +8,7 @@ import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import NotFoundScreen from './screens/NotFoundScreen';
-import CheckoutScreen    from './screens/CheckoutScreen';
+import CheckoutScreen from "./screens/CheckoutScreen";
 import PaymentScreen     from './screens/PaymentScreen';
 import PlaceOrderScreen  from './screens/PlaceOrderScreen';
 import MyOrdersScreen    from './screens/OrdersScreen';
