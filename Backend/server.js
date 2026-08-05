@@ -2,11 +2,11 @@ require('dotenv').config();
 
 const express       = require('express');
 const cors          = require('cors');
-const connectDB     = require('./config/db');
-const productRoutes = require('./routes/productRoutes');
-const userRoutes    = require('./routes/userRoutes');
-const orderRoutes   = require('./routes/orderRoutes');
-const { errorHandler, notFound } = require('./middleware/errorMiddleware');
+const connectDB     = require('./Config/db');
+const productRoutes = require('./Routes/productRoutes');
+const userRoutes    = require('./Routes/userRoutes');
+const orderRoutes   = require('./Routes/orderRoutes');
+const { errorHandler, notFound } = require('./Middleware/errorMiddleware');
 
 connectDB();
 const app  = express();
