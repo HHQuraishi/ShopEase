@@ -1,20 +1,19 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { setCredentials } from "../store/authSlice";
+import { useAuth } from "../context/AuthContext";
 import { loginUser } from "../services/api";
 
 function LoginScreen() {
   const dispatch = useDispatch();
-
+  const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
-
   const [loading, setLoading] = useState(false);
-
   const [error, setError] = useState("");
 
   const submitHandler = async (e) => {
@@ -26,11 +25,12 @@ function LoginScreen() {
     try {
       const { data } = await loginUser(email, password);
 
-      // Redux store update karo
-
+      // Update both Redux and auth context
       dispatch(setCredentials({ user: data.data, token: data.token }));
+      login(data.data, data.token);
 
-      navigate("/");
+      const redirectTo = location.state?.from || "/";
+      navigate(redirectTo, { replace: true });
     } catch (err) {
       setError(err.response?.data?.message || "Login failed!");
     } finally {

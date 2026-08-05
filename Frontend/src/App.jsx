@@ -28,13 +28,13 @@ function App() {
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/register" element={<RegisterScreen />} />
           <Route path="/profile" element={<ProtectedRoute><ProfileScreen /></ProtectedRoute>} />
-          <Route path="*" element={<NotFoundScreen />} />
           <Route path='/checkout'   element={<ProtectedRoute><CheckoutScreen /></ProtectedRoute>} />
           <Route path='/payment'    element={<ProtectedRoute><PaymentScreen /></ProtectedRoute>} />
           <Route path='/placeorder' element={<ProtectedRoute><PlaceOrderScreen /></ProtectedRoute>} />
           <Route path='/myorders'   element={<ProtectedRoute><MyOrdersScreen /></ProtectedRoute>} />
           <Route path='/orders/:id' element={<ProtectedRoute><OrderDetailScreen /></ProtectedRoute>} />
           <Route path='/admin/orders' element={<AdminRoute><AdminOrdersScreen /></AdminRoute>} />
+          <Route path="*" element={<NotFoundScreen />} />
         </Routes>
       </main>
     </>
